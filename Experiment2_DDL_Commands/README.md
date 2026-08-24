@@ -1,228 +1,178 @@
-# Experiment 2: DDL Commands
-
-## AIM
+Experiment 2: DDL Commands
+AIM
 To study and implement DDL commands and different types of constraints.
 
-## THEORY
-
-### 1. CREATE
+THEORY
+1. CREATE
 Used to create a new relation (table).
 
-**Syntax:**
-```sql
+Syntax:
+
 CREATE TABLE (
   field_1 data_type(size),
   field_2 data_type(size),
   ...
 );
-```
-### 2. ALTER
-Used to add, modify, drop, or rename fields in an existing relation.
-(a) ADD
-```sql
+2. ALTER
+Used to add, modify, drop, or rename fields in an existing relation. (a) ADD
+
 ALTER TABLE std ADD (Address CHAR(10));
-```
 (b) MODIFY
-```sql
+
 ALTER TABLE relation_name MODIFY (field_1 new_data_type(size));
-```
 (c) DROP
-```sql
+
 ALTER TABLE relation_name DROP COLUMN field_name;
-```
 (d) RENAME
-```sql
+
 ALTER TABLE relation_name RENAME COLUMN old_field_name TO new_field_name;
-```
-### 3. DROP TABLE
+3. DROP TABLE
 Used to permanently delete the structure and data of a table.
-```sql
+
 DROP TABLE relation_name;
-```
-### 4. RENAME
+4. RENAME
 Used to rename an existing database object.
-```sql
+
 RENAME TABLE old_relation_name TO new_relation_name;
-```
-### CONSTRAINTS
+CONSTRAINTS
 Constraints are used to specify rules for the data in a table. If there is any violation between the constraint and the data action, the action is aborted by the constraint. It can be specified when the table is created (using CREATE TABLE) or after it is created (using ALTER TABLE).
-### 1. NOT NULL
-When a column is defined as NOT NULL, it becomes mandatory to enter a value in that column.
-Syntax:
-```sql
+
+1. NOT NULL
+When a column is defined as NOT NULL, it becomes mandatory to enter a value in that column. Syntax:
+
 CREATE TABLE Table_Name (
   column_name data_type(size) NOT NULL
 );
-```
-### 2. UNIQUE
-Ensures that values in a column are unique.
-Syntax:
-```sql
+2. UNIQUE
+Ensures that values in a column are unique. Syntax:
+
 CREATE TABLE Table_Name (
   column_name data_type(size) UNIQUE
 );
-```
-### 3. CHECK
-Specifies a condition that each row must satisfy.
-Syntax:
-```sql
+3. CHECK
+Specifies a condition that each row must satisfy. Syntax:
+
 CREATE TABLE Table_Name (
   column_name data_type(size) CHECK (logical_expression)
 );
-```
-### 4. PRIMARY KEY
-Used to uniquely identify each record in a table.
-Properties:
-Must contain unique values.
-Cannot be null.
-Should contain minimal fields.
-Syntax:
-```sql
+4. PRIMARY KEY
+Used to uniquely identify each record in a table. Properties: Must contain unique values. Cannot be null. Should contain minimal fields. Syntax:
+
 CREATE TABLE Table_Name (
   column_name data_type(size) PRIMARY KEY
 );
-```
-### 5. FOREIGN KEY
-Used to reference the primary key of another table.
-Syntax:
-```sql
+5. FOREIGN KEY
+Used to reference the primary key of another table. Syntax:
+
 CREATE TABLE Table_Name (
   column_name data_type(size),
   FOREIGN KEY (column_name) REFERENCES other_table(column)
 );
-```
-### 6. DEFAULT
+6. DEFAULT
 Used to insert a default value into a column if no value is specified.
 
 Syntax:
-```sql
+
 CREATE TABLE Table_Name (
   col_name1 data_type,
   col_name2 data_type,
   col_name3 data_type DEFAULT 'default_value'
 );
-```
+Question 1
+Q1
+ALTER TABLE Student_details ADD COLUMN State TEXT;
+Output:
 
-**Question 1**
---
--- Paste Question 1 here
+QA1
+Question 2
+Q2
+CREATE TABLE Departments(
+DepartmentID INTEGER,
+DepartmentName TEXT);
+Output:
 
-```sql
--- Paste your SQL code below for Question 1
-```
+QA2
+Question 3
+Q3
+CREATE TABLE item(
+item_id TEXT PRIMARY KEY,
+item_desc TEXT NOT NULL,
+rate INTEGER NOT NULL,
+icom_id TEXT(4),
+FOREIGN KEY (icom_id) REFERENCES company(com_id)
+ON UPDATE CASCADE
+ON DELETE CASCADE);
+Output:
 
-**Output:**
+QA3
+Question 4
+Q4
+CREATE TABLE products(
+product_id INTEGER PRIMARY KEY,
+product_name TEXT NOT NULL,
+list_price DECIMAL(10,2) NOT NULL,
+discount DECIMAL(10,2)NOT NULL
+DEFAULT 0,
+CHECK (list_price >= discount),
+CHECK (list_price >= 0),
+CHECK (discount >=0 )
+);
+Output:
 
-![Output1](output.png)
+QA4
+Question 5
+Q5
+INSERT INTO Employee (EmployeeID,Name,Position,Department,Salary) VALUES(001,'Sarah Parker','Manager','HR',60000);
+Output:
 
-**Question 2**
----
--- Paste Question 2 here
+QA5
+Question 6
+Q6
+INSERT INTO Customers (CustomerID,Name,Address,City,ZipCode) VALUES(302,'Laura Croft','456 Elm St','Seattle','98101');
+INSERT INTO Customers (CustomerID,Name,Address,City,ZipCode) VALUES(303,'Bruce Wayne','789 Oak St','Gotham','10001');
+Output:
 
-```sql
--- Paste your SQL code below for Question 2
-```
+QA6
+Question 7
+Q7
+CREATE TABLE item(
+item_id TEXT PRIMARY KEY,
+item_desc TEXT NOT NULL,
+rate INTEGER NOT NULL,
+icom_id TEXT(4),
+FOREIGN KEY (icom_id) REFERENCES company(com_id)
+ON UPDATE SET NULL
+ON DELETE SET NULL);
+Output:
 
-**Output:**
+QA7
+Question 8
+Q8
+CREATE TABLE contacts(
+contact_id INTEGER PRIMARY KEY,
+first_name TEXT NOT NULL,
+last_name TEXT NOT NULL,
+email TEXT,
+phone TEXT NOT NULL,
+CHECK(LENGTH(phone)>=10)
+);
+Output:
 
-![Output2](output.png)
+QA8
+Question 9
+Q9
+ALTER TABLE student_details
+ADD COLUMN Date_of_birth Date;
+Output:
 
-**Question 3**
----
--- Paste Question 3 here
+QA9
+Question 10
+Q10
+INSERT INTO Student_details (RollNo,Name,Gender,Subject,Marks)
+SELECT RollNo,Name,Gender,Subject,Marks
+FROM Archived_students;
+Output:
 
-```sql
--- Paste your SQL code below for Question 3
-```
-
-**Output:**
-
-![Output3](output.png)
-
-**Question 4**
----
--- Paste Question 4 here
-
-```sql
--- Paste your SQL code below for Question 4
-```
-
-**Output:**
-
-![Output4](output.png)
-
-**Question 5**
----
--- Paste Question 5 here
-
-```sql
--- Paste your SQL code below for Question 5
-```
-
-**Output:**
-
-![Output5](output.png)
-
-**Question 6**
----
--- Paste Question 6 here
-
-```sql
--- Paste your SQL code below for Question 6
-```
-
-**Output:**
-
-![Output6](output.png)
-
-**Question 7**
----
--- Paste Question 7 here
-
-```sql
--- Paste your SQL code below for Question 7
-```
-
-**Output:**
-
-![Output7](output.png)
-
-**Question 8**
----
--- Paste Question 8 here
-
-```sql
--- Paste your SQL code below for Question 8
-```
-
-**Output:**
-
-![Output8](output.png)
-
-**Question 9**
----
--- Paste Question 9 here
-
-```sql
--- Paste your SQL code below for Question 9
-```
-
-**Output:**
-
-![Output9](output.png)
-
-**Question 10**
----
--- Paste Question 10 here
-
-```sql
--- Paste your SQL code below for Question 10
-```
-
-**Output:**
-
-![Output10](output.png)
-
-
-## RESULT
+QA10
+RESULT
 Thus, the SQL queries to implement different types of constraints and DDL commands have been executed successfully.
